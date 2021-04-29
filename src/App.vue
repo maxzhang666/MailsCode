@@ -13,7 +13,7 @@
           验证码获取
         </h2>
       </div>
-      <form class="mt-8 space-y-6" action="" id="form" @submit="getCode">
+      <div class="mt-8 space-y-6" action="" id="form">
         <div class="rounded-md shadow-sm -space-y-px">
           <div>
             <label for="email-address" class="sr-only">Email address</label>
@@ -59,7 +59,7 @@
 
 <script>
 import { getEmail } from "./api";
-import { swal } from "sweetalert";
+// import { swal } from "sweetalert";
 export default {
   data() {
     return {
@@ -69,15 +69,20 @@ export default {
   },
   methods: {
     getCode: function () {
-      getEmail(this.msg).then((e) => {
-        let data = e.data;
-        if (data.status) {
-        } else {
-          this.email = "";
-          swal({ text: data.message });
-          alert(data.message);
-        }
-      });
+      const reg = /^([a-zA-Z0-9]+[-_\.]?)+@[a-zA-Z0-9]+\.[a-z]+$/;
+      if (!reg.test(this.email)) {
+        this.email = "";
+        swal(`不是有效的邮箱`);
+      } else {
+        getEmail(this.msg).then((e) => {
+          let data = e.data;
+          if (data.status) {
+          } else {
+            this.email = "";
+            swal(data.message);
+          }
+        });
+      }
     },
   },
 };
