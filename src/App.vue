@@ -51,7 +51,7 @@
             获取验证码
           </button>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </template>
@@ -59,7 +59,7 @@
 
 <script>
 import { getEmail } from "./api";
-// import { swal } from "sweetalert";
+import  swal  from "sweetalert";
 export default {
   data() {
     return {
